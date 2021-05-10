@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">APIMateR</string>
+    <string name="basic_preference_header">Basic Preferences</string>
+    <string name="advanced_preference_header">Advanced Preferences</string>
+    <string name="prepare_title">Select dat directory</string>
+    <string name="edit_translator_title">Edit translator script</string>
+    <string name="edit_viewer_title">Edit viewer script</string>
+    <string name="edit_preference_title">Edit preference script</string>
+    <string name="oss_title">Open source licenses</string>
+    <string name="save_script">Save</string>
+    <string name="revert_script">Revert to default</string>
+    <string name="save_script_succeeded">Saved</string>
+    <string name="save_script_failed">Failed to save script</string>
+    <string name="revert_script_succeeded">Reverted</string>
+    <string name="revert_script_failed">Failed to revert script</string>
+    <string name="translate_failed">Failed to execute script (translate)</string>
+    <string name="view_failed">Failed to execute script (view)</string>
+    <string name="prepare_create_failed">Failed to execute script (onCreateDatPreference)</string>
+    <string name="prepare_click_failed">Failed to execute script (onClickDatPreference)</string>
+</resources>

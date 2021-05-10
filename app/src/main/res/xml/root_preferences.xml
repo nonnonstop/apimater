@@ -1,0 +1,55 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/basic_preference_header">
+
+        <Preference
+            app:key="prepare"
+            app:title="@string/prepare_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/advanced_preference_header">
+        <Preference
+            app:key="edit_translator"
+            app:title="@string/edit_translator_title">
+            <intent
+                android:targetClass="com.nonnonstop.apimate.EditActivity"
+                android:targetPackage="com.nonnonstop.apimate">
+                <extra
+                    android:name="android.intent.extra.TEXT"
+                    android:value="translator.js" />
+            </intent>
+        </Preference>
+        <Preference
+            app:key="edit_viewer"
+            app:title="@string/edit_viewer_title">
+            <intent
+                android:targetClass="com.nonnonstop.apimate.EditActivity"
+                android:targetPackage="com.nonnonstop.apimate">
+                <extra
+                    android:name="android.intent.extra.TEXT"
+                    android:value="viewer.js" />
+            </intent>
+        </Preference>
+        <Preference
+            app:key="edit_preference"
+            app:title="@string/edit_preference_title">
+            <intent
+                android:targetClass="com.nonnonstop.apimate.EditActivity"
+                android:targetPackage="com.nonnonstop.apimate">
+                <extra
+                    android:name="android.intent.extra.TEXT"
+                    android:value="preference.js" />
+            </intent>
+        </Preference>
+        <Preference
+            app:key="oss"
+            app:title="@string/oss_title">
+            <intent
+                android:targetClass="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+                android:targetPackage="com.nonnonstop.apimate" />
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
