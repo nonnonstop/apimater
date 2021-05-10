@@ -24,7 +24,12 @@ class LoadActivity : AppCompatActivity() {
     }
 
     private fun dispatchIndent(intent: Intent?) {
-        val htmlUrl = intent?.dataString ?: return
+        val htmlUrl = if (intent?.scheme == "apimater") {
+            val (host, bbs, key) = (intent.data?.host ?: return).split(",")
+            "https://$host/test/read.cgi/$bbs/$key/"
+        } else {
+            intent?.dataString ?: return
+        }
         loadViewModel.htmlUrl.value = htmlUrl
     }
 }

@@ -38,6 +38,14 @@
                     android:host="*.bbspink.com"
                     android:pathPrefix="/test/read.cgi" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="apimater" />
+            </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
