@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">APIMateR</string>
+    <string name="basic_preference_header">基本設定</string>
+    <string name="advanced_preference_header">詳細設定</string>
+    <string name="prepare_title">datディレクトリを選択</string>
+    <string name="revert_script_when_upgrade">更新時にスクリプトを最新化</string>
+    <string name="edit_translator_title">トランスレータ・スクリプトの編集</string>
+    <string name="edit_viewer_title">ビューア・スクリプトの編集</string>
+    <string name="edit_preference_title">設定スクリプトの編集</string>
+    <string name="oss_title">オープンソースライセンス</string>
+    <string name="save_script">保存</string>
+    <string name="revert_script">デフォルトに戻す</string>
+    <string name="save_script_succeeded">保存しました</string>
+    <string name="save_script_failed">スクリプトの保存に失敗しました</string>
+    <string name="revert_script_succeeded">初期化しました</string>
+    <string name="revert_script_failed">スクリプトの初期化に失敗しました</string>
+    <string name="translate_failed">スクリプト(translate)の実行に失敗しました</string>
+    <string name="view_failed">スクリプト(view)の実行に失敗しました</string>
+    <string name="prepare_create_failed">スクリプト(onCreateDatPreference)の実行に失敗しました</string>
+    <string name="prepare_click_failed">スクリプト(onClickDatPreference)の実行に失敗しました</string>
+</resources>
