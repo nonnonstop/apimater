@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 
 class LoadActivity : AppCompatActivity() {
-    private val loadViewModel: LoadViewModel by viewModels()
+    private val viewModel: LoadViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,21 +15,21 @@ class LoadActivity : AppCompatActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        dispatchIndent(intent)
+        dispatchIntent(intent)
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        dispatchIndent(intent)
+        dispatchIntent(intent)
     }
 
-    private fun dispatchIndent(intent: Intent?) {
+    private fun dispatchIntent(intent: Intent?) {
         val htmlUrl = intent?.data?.normalizeScheme()?.run {
             if (scheme == "apimater")
                 encodedSchemeSpecificPart
             else
                 toString()
         } ?: return
-        loadViewModel.htmlUrl.value = htmlUrl
+        viewModel.htmlUrl.value = htmlUrl
     }
 }
