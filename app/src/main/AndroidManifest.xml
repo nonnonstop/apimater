@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.APIMateR"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditActivity" />
+        <activity
+            android:name=".EditActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".LoadActivity"
             android:excludeFromRecents="true"
