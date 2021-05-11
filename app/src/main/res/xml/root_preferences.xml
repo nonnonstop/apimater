@@ -10,6 +10,10 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/advanced_preference_header">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="revert_script_when_upgrade"
+            android:title="@string/revert_script_when_upgrade" />
         <Preference
             app:key="edit_translator"
             app:title="@string/edit_translator_title">

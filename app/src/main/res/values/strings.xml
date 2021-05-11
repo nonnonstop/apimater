@@ -3,6 +3,7 @@
     <string name="basic_preference_header">Basic Preferences</string>
     <string name="advanced_preference_header">Advanced Preferences</string>
     <string name="prepare_title">Select dat directory</string>
+    <string name="revert_script_when_upgrade">Update scripts when upgrading</string>
     <string name="edit_translator_title">Edit translator script</string>
     <string name="edit_viewer_title">Edit viewer script</string>
     <string name="edit_preference_title">Edit preference script</string>

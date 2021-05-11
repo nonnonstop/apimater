@@ -1,6 +1,7 @@
 package com.nonnonstop.apimate
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -11,10 +12,26 @@ class MyApplication : Application(), Thread.UncaughtExceptionHandler {
         super.onCreate()
         Timber.plant(FileTree(applicationContext), DebugTree())
         Thread.setDefaultUncaughtExceptionHandler(this)
+        upgradeData()
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {
         Timber.e(e, "Unexpected error")
         defaultExceptionHandler?.uncaughtException(t, e)
+    }
+
+    private fun upgradeData() {
+        val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val savedVersion = pref.getInt("version", 100)
+        val currentVersion = BuildConfig.VERSION_CODE
+        if (savedVersion == currentVersion)
+            return
+        with(pref.edit()) {
+            putInt("version", currentVersion)
+            apply()
+        }
+        if (pref.getBoolean("revert_script_when_upgrade", true)) {
+            Scripts(applicationContext).revertAllScripts()
+        }
     }
 }
