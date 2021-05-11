@@ -24,7 +24,12 @@ class LoadActivity : AppCompatActivity() {
     }
 
     private fun dispatchIndent(intent: Intent?) {
-        val htmlUrl = intent?.dataString ?: return
+        val htmlUrl = intent?.data?.normalizeScheme()?.run {
+            if (scheme == "apimater")
+                encodedSchemeSpecificPart
+            else
+                toString()
+        } ?: return
         loadViewModel.htmlUrl.value = htmlUrl
     }
 }
