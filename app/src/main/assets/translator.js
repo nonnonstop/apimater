@@ -116,11 +116,11 @@ var HtmlToDatTranslator = /** @class */ (function (_super) {
                     .replace(/<img src="http(:\/\/[^"]+)">/g, 'sssp$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(mail + "<>" + name_1 + "<>" + date + "<>" + message + "<>" + title + "\n");
+                    this.writeDat(name_1 + "<>" + mail + "<>" + date + "<>" + message + "<>" + title + "\n");
                     title = null;
                 }
                 else {
-                    this.writeDat(mail + "<>" + name_1 + "<>" + date + "<>" + message + "<>\n");
+                    this.writeDat(name_1 + "<>" + mail + "<>" + date + "<>" + message + "<>\n");
                 }
             }
         }
@@ -147,11 +147,11 @@ var HtmlToDatTranslator = /** @class */ (function (_super) {
                     .replace(/<img src="(\/\/[^"]+)">/g, 'sssp:$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(mail + "<>" + name_2 + "<>" + date + "<>" + message + "<>" + title + "\n");
+                    this.writeDat(name_2 + "<>" + mail + "<>" + date + "<>" + message + "<>" + title + "\n");
                     title = null;
                 }
                 else {
-                    this.writeDat(mail + "<>" + name_2 + "<>" + date + "<>" + message + "<>\n");
+                    this.writeDat(name_2 + "<>" + mail + "<>" + date + "<>" + message + "<>\n");
                 }
             }
         }
@@ -178,11 +178,11 @@ var HtmlToDatTranslator = /** @class */ (function (_super) {
                     .replace(/<img src="(\/\/[^"]+)">/g, 'sssp:$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(mail + "<>" + name_3 + "<>" + date + "<>" + message + "<>" + title + "\n");
+                    this.writeDat(name_3 + "<>" + mail + "<>" + date + "<>" + message + "<>" + title + "\n");
                     title = null;
                 }
                 else {
-                    this.writeDat(mail + "<>" + name_3 + "<>" + date + "<>" + message + "<>\n");
+                    this.writeDat(name_3 + "<>" + mail + "<>" + date + "<>" + message + "<>\n");
                 }
             }
         }
@@ -209,11 +209,11 @@ var HtmlToDatTranslator = /** @class */ (function (_super) {
                     .replace(/<img src="http(:\/\/[^"]+)">/g, 'sssp$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(mail + "<>" + name_4 + "<>" + date + "<>" + message + "<>" + title + "\n");
+                    this.writeDat(name_4 + "<>" + mail + "<>" + date + "<>" + message + "<>" + title + "\n");
                     title = null;
                 }
                 else {
-                    this.writeDat(mail + "<>" + name_4 + "<>" + date + "<>" + message + "<>\n");
+                    this.writeDat(name_4 + "<>" + mail + "<>" + date + "<>" + message + "<>\n");
                 }
             }
         }
@@ -269,7 +269,8 @@ var ScToNetTranslator = /** @class */ (function (_super) {
                 if (res.length < 4)
                     break;
                 res[0] = res[0]
-                    .replace(/＠＼(^o^)／/g, '＠無断転載禁止');
+                    .replace(/アフィサイトへの＼\(\^o\^\)／です/g, 'アフィサイトへの転載は禁止です')
+                    .replace(/＠＼\(\^o\^\)／/g, '＠無断転載禁止');
                 res[2] = res[2]
                     .replace(/<a href="http:\/\/be\.[25]ch\.net\/user\/(\d+)"[^>]*>\?([^<]+)<\/a>/g, 'BE:$1-$2')
                     .replace(/( ID:[^ .]+)($| )/g, '$1.sc$2')
