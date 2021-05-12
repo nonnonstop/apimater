@@ -109,11 +109,11 @@ class HtmlToDatTranslator extends Translator {
                     .replace(/<img src="http(:\/\/[^"]+)">/g, 'sssp$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>${title}\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>${title}\n`);
                     title = null;
                 }
                 else {
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
         }
@@ -140,11 +140,11 @@ class HtmlToDatTranslator extends Translator {
                     .replace(/<img src="(\/\/[^"]+)">/g, 'sssp:$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>${title}\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>${title}\n`);
                     title = null;
                 }
                 else {
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
         }
@@ -171,11 +171,11 @@ class HtmlToDatTranslator extends Translator {
                     .replace(/<img src="(\/\/[^"]+)">/g, 'sssp:$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>${title}\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>${title}\n`);
                     title = null;
                 }
                 else {
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
         }
@@ -202,11 +202,11 @@ class HtmlToDatTranslator extends Translator {
                     .replace(/<img src="http(:\/\/[^"]+)">/g, 'sssp$1');
                 if (title !== null) {
                     this.openDat();
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>${title}\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>${title}\n`);
                     title = null;
                 }
                 else {
-                    this.writeDat(`${mail}<>${name}<>${date}<>${message}<>\n`);
+                    this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
         }
@@ -258,7 +258,8 @@ class ScToNetTranslator extends Translator {
                 if (res.length < 4)
                     break
                 res[0] = res[0]
-                    .replace(/＠＼(^o^)／/g, '＠無断転載禁止');
+                    .replace(/アフィサイトへの＼\(\^o\^\)／です/g, 'アフィサイトへの転載は禁止です')
+                    .replace(/＠＼\(\^o\^\)／/g, '＠無断転載禁止');
                 res[2] = res[2]
                     .replace(/<a href="http:\/\/be\.[25]ch\.net\/user\/(\d+)"[^>]*>\?([^<]+)<\/a>/g, 'BE:$1-$2')
                     .replace(/( ID:[^ .]+)($| )/g, '$1.sc$2')
