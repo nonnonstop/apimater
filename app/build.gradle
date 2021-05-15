@@ -66,3 +66,42 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+// Build TypeScript
+import org.apache.tools.ant.taskdefs.condition.Os
+
+class NodeExec extends Exec {
+    NodeExec() {
+        workingDir 'src/main/script'
+        if (project.hasProperty('NPM_DIR')) {
+            environment 'PATH', project['NPM_DIR']
+        }
+    }
+
+    void npmCommandLine(String... args) {
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            commandLine('cmd', '/c', 'npm.cmd', *args)
+        } else {
+            commandLine('npm', *args)
+        }
+    }
+}
+
+def prepareBuildAssetScripts = tasks.register('prepareBuildAssetScripts', NodeExec) {
+    npmCommandLine 'install'
+}
+
+def buildAssetScripts = tasks.register('buildAssetScripts', NodeExec) {
+    npmCommandLine 'run', 'build'
+    dependsOn prepareBuildAssetScripts
+}
+
+def cleanBuildAssetScripts = tasks.register('cleanBuildAssetScripts', NodeExec) {
+    npmCommandLine 'run', 'clean'
+}
+
+android.applicationVariants.all { variant ->
+    variant.getMergeAssetsProvider().get().dependsOn(buildAssetScripts)
+}
+
+tasks.clean.dependsOn(cleanBuildAssetScripts)

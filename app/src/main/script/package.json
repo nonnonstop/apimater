@@ -4,8 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint src/",
+    "build": "npx tsc --build",
+    "clean": "npx tsc --build --clean",
+    "lint": "npx eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
