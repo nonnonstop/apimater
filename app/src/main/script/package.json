@@ -11,6 +11,7 @@
   },
   "author": "",
   "license": "ISC",
+  "private": true,
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
