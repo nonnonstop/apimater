@@ -4,13 +4,24 @@
  * This function is called from LoadActivity on worker thread.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function translate(context: ApplicationContext, htmlUrl: string) {
+function translate(context: ApplicationContext, htmlUrl: string): void {
     const datWriter = new DatWriter(context);
-    // Avaiable translators: HtmlToDatTranslator, ScToNetTranslator, ApiToDatTranslator
-    const translator: Translator = new HtmlToDatTranslator(htmlUrl, datWriter);
-    // const translator: Translator = new ScToNetTranslator(htmlUrl, datWriter);
-    // const translator: Translator = new ApiToDatTranslator(htmlUrl, datWriter);
-    translator.translate();
+    const translators: Translator[] = [
+        new HtmlToDatTranslator(htmlUrl, datWriter),
+        new ApiToDatTranslator(htmlUrl, datWriter),
+        new ScToNetTranslator(htmlUrl, datWriter),
+    ];
+    for (const translator of translators) {
+        try {
+            if (translator.translate())
+                return;
+        } catch (e) {
+            Packages.timber.log.Timber.e(
+                Packages.org.mozilla.javascript.EvaluatorException(e.toString()),
+                'Failed to translate');
+        }
+    }
+    throw Error('Failed to translate');
 }
 
 /**
@@ -49,13 +60,12 @@ abstract class Translator {
         this.writer.close();
     }
 
-    public abstract translate(): void;
+    public abstract translate(): boolean;
 }
 
 /**
  * Dat translator using 5ch html
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class HtmlToDatTranslator extends Translator {
     private requestHtml(): string {
         const client = new Packages.okhttp3.OkHttpClient();
@@ -90,7 +100,7 @@ class HtmlToDatTranslator extends Translator {
         }
     }
 
-    private convertToDatV5(htmlData: string) {
+    private convertToDatV5(htmlData: string): void {
         let title: string | null = (htmlData.match(/<title>(.*?) ?<\/title>/)?.[1] ?? '') + '\t';
         const resRegexp = /<dt>(\d+) ：(?:<a href="mailto:([^"]*)">(.*?)<\/a>|<font color=green>(.*?)<\/font>)：(.*?)<dd>(.*)<br><br>/g;
         try {
@@ -116,13 +126,15 @@ class HtmlToDatTranslator extends Translator {
                     this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
+            if (title !== null)
+                throw new Error('Res not found');
         }
         finally {
             this.closeDat();
         }
     }
 
-    private convertToDatV6(htmlData: string) {
+    private convertToDatV6(htmlData: string): void {
         let title: string | null = (htmlData.match(/<title>(.*?)\n<\/title>/)?.[1] ?? '') + '\t';
         const resRegexp = /<div class="post"[^>]*><div class="number">(?!0)(\d+) : <\/div><div class="name"><b>(?:<a href="mailto:([^"]*)">)?(.*?)(?:<\/a>)?<\/b><\/div><div class="date">(.*?)<\/div><div class="message">(.*?)<\/div><\/div>/g;
         try {
@@ -147,13 +159,15 @@ class HtmlToDatTranslator extends Translator {
                     this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
+            if (title !== null)
+                throw new Error('Res not found');
         }
         finally {
             this.closeDat();
         }
     }
 
-    private convertToDatV7(htmlData: string) {
+    private convertToDatV7(htmlData: string): void {
         let title: string | null = (htmlData.match(/<title>(.*?)\n<\/title>/)?.[1] ?? '') + '\t';
         const resRegexp = /<div class="post"[^>]*><div class="meta"><span class="number">0*(\d+)<\/span><span class="name"><b>(?:<a href="mailto:([^"]*)">)?(.*?)(?:<\/a>)?<\/b><\/span><span class="date">(.*?)<\/span><span class="uid">(.*?)<\/span><\/div><div class="message"><span class="escaped">(.*?)<\/span><\/div><\/div>/g;
         try {
@@ -178,13 +192,15 @@ class HtmlToDatTranslator extends Translator {
                     this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
+            if (title !== null)
+                throw new Error('Res not found');
         }
         finally {
             this.closeDat();
         }
     }
 
-    private convertToDatPink(htmlData: string) {
+    private convertToDatPink(htmlData: string): void {
         let title: string | null = htmlData.match(/<title>(.*?)\n<\/title>/)?.[1] ?? '';
         const resRegexp = /<dl class="post"[^>]*><dt class=""><span class="number">(?!0)(\d+) : <\/span><span class="name"><b>(?:<a href="mailto:([^"]*)">(.*?)<\/a>|<font color="green">(.*?)<\/font>)<\/b><\/span><span class="date">(.*?)<\/(?:span|div)><\/dt><dd class="thread_in">(.*?)<\/dd><\/dl>/g;
         try {
@@ -209,22 +225,24 @@ class HtmlToDatTranslator extends Translator {
                     this.writeDat(`${name}<>${mail}<>${date}<>${message}<>\n`);
                 }
             }
+            if (title !== null)
+                throw new Error('Res not found');
         }
         finally {
             this.closeDat();
         }
     }
 
-    public translate() {
+    public translate(): boolean {
         const htmlData = this.requestHtml();
         this.convertToDat(htmlData);
+        return true;
     }
 }
 
 /**
  * Dat translator using 2ch.sc dat
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class ScToNetTranslator extends Translator {
     private requestScDat(): string {
         const urlMatcher = this.htmlUrl.match(/^https?:\/\/(\w+)\.[\w.]+\/test\/read\.(?:cgi|php)\/(\w+)\/(\d+)/);
@@ -249,10 +267,10 @@ class ScToNetTranslator extends Translator {
         }
     }
 
-    private convertToNetDat(scDat: string) {
+    private convertToNetDat(scDat: string): void {
         try {
+            let found = false;
             const datLines = scDat.split(/\r\n|\n|\r/);
-            this.openDat();
             for (const datLine of datLines) {
                 const res = datLine.split('<>')
                 if (res.length < 4)
@@ -268,24 +286,30 @@ class ScToNetTranslator extends Translator {
                 res[3] = res[3]
                     .replace(/sssp:\/\/img\.2ch\.sc\/ico\//g, 'sssp://img.5ch.sc/ico/')
                     .replace(/<img src="(\/\/[^"]+)">/g, 'sssp:$1');
+                if (!found) {
+                    this.openDat();
+                    found = true;
+                }
                 this.writeDat(res.join('<>') + '\n');
             }
+            if (!found)
+                throw new Error('Res not found');
         }
         finally {
             this.closeDat();
         }
     }
 
-    public translate() {
+    public translate(): boolean {
         const scDat = this.requestScDat();
         this.convertToNetDat(scDat);
+        return true;
     }
 }
 
 /**
  * Dat translator using API
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class ApiToDatTranslator extends Translator {
     private static readonly APP_KEY = '<2CH APP KEY>';
     private static readonly HM_KEY = '<2CH HM KEY>';
@@ -341,13 +365,18 @@ class ApiToDatTranslator extends Translator {
         return bytes;
     }
 
-    public translate() {
+    public translate(): boolean {
+        if (ApiToDatTranslator.APP_KEY.length !== 30)
+            return false;
+        if (ApiToDatTranslator.HM_KEY.length !== 30)
+            return false;
         const id = JSON.parse(this.request(`/api/v1/prepare/${this.server}/${this.board}/${this.thread}`)).id;
         Packages.java.lang.Thread.sleep(5000);
         try {
             const dat = this.request(`/api/v1/get/${id}`);
             this.openDat();
             this.writeDat(dat);
+            return true;
         }
         finally {
             this.closeDat();
