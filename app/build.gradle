@@ -21,8 +21,8 @@ android {
         applicationId "com.nonnonstop.apimate"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 201
-        versionName "0.2.1"
+        versionCode 300
+        versionName "0.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
