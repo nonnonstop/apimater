@@ -10,7 +10,11 @@ class MyApplication : Application(), Thread.UncaughtExceptionHandler {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(FileTree(applicationContext), DebugTree())
+        val logDir = externalCacheDir
+        if (logDir == null)
+            Timber.plant(DebugTree())
+        else
+            Timber.plant(FileTree(logDir), DebugTree())
         Thread.setDefaultUncaughtExceptionHandler(this)
         upgradeData()
     }
