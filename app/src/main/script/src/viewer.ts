@@ -5,7 +5,6 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function view(activity: Activity, htmlUrl: string): void {
-    activity.getSystemService('activity')
-        .killBackgroundProcesses('jp.co.airfront.android.a2chMate');
-    activity.finish();
+    const viewer = Packages.com.nonnonstop.apimate.viewer.BuiltinViewer();
+    viewer.view(activity);
 }

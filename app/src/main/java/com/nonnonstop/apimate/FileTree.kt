@@ -31,13 +31,13 @@ class FileTree(baseDir: File) : Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         val level = when (priority) {
-            Log.VERBOSE -> Level.FINER
-            Log.DEBUG -> Level.FINE
-            Log.INFO -> Level.INFO
+            Log.VERBOSE -> return
+            Log.DEBUG -> return
+            Log.INFO -> return
             Log.WARN -> Level.WARNING
             Log.ERROR -> Level.SEVERE
             Log.ASSERT -> Level.SEVERE
-            else -> Level.FINEST
+            else -> return
         }
         logger.log(level, message, t)
     }

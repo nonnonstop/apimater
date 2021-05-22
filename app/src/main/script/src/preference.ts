@@ -5,21 +5,8 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function onCreateDatPreference(fragment: Fragment, preference: Preference): ActivityResultLauncher {
-    const context = fragment.getContext().getApplicationContext();
-
-    const contracts = new Packages.androidx.activity.result.contract.ActivityResultContracts.OpenDocumentTree();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const resultCallback = (uri: any) => {
-        if (uri === null) {
-            return;
-        }
-        context.getContentResolver().takePersistableUriPermission(uri, 3);
-
-        const prefEditor = context.getSharedPreferences('DatWriter', 0).edit();
-        prefEditor.putString('documentTreeUri', uri);
-        prefEditor.commit();
-    }
-    return fragment.registerForActivityResult(contracts, resultCallback);
+    const preflauncher = Packages.com.nonnonstop.apimate.preflaunch.BuiltinPrefLauncher();
+    return preflauncher.onCreateDatPreference(fragment);
 }
 
 /**
@@ -29,8 +16,9 @@ function onCreateDatPreference(fragment: Fragment, preference: Preference): Acti
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function onClickDatPreference(fragment: Fragment, launcher: ActivityResultLauncher): void {
-    const documentUri = Packages.android.provider.DocumentsContract.buildDocumentUri(
+    const preflauncher = Packages.com.nonnonstop.apimate.preflaunch.BuiltinPrefLauncher();
+    return preflauncher.onClickDatPreference(
+        launcher,
         'com.android.externalstorage.documents',
         'primary:Android/data/jp.co.airfront.android.a2chMate/files/2chMate/dat');
-    launcher.launch(documentUri);
 }
