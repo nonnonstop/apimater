@@ -7,8 +7,6 @@ import androidx.preference.Preference
 import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Function
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption
 
 class Scripts(private val context: Context) {
     private companion object {
@@ -40,7 +38,7 @@ class Scripts(private val context: Context) {
         try {
             context.optimizationLevel = -1
             val scope = context.initStandardObjects()
-            Files.newBufferedReader(file.toPath()).use { reader ->
+            file.reader().use { reader ->
                 context.evaluateReader(scope, reader, file.name, 1, null)
             }
             val callable = scope.get(functionName, scope) as Function
@@ -52,8 +50,10 @@ class Scripts(private val context: Context) {
 
     fun revertScript(fileName: String) {
         val file = File(context.filesDir, fileName)
-        context.assets.open(fileName).use { stream ->
-            Files.copy(stream, file.toPath(), StandardCopyOption.REPLACE_EXISTING)
+        context.assets.open(fileName).use { inputStream ->
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
         }
     }
 
@@ -64,17 +64,11 @@ class Scripts(private val context: Context) {
     }
 
     fun readScript(fileName: String): String {
-        val file = File(context.filesDir, fileName)
-        Files.newBufferedReader(file.toPath()).use { reader ->
-            return reader.readText()
-        }
+        return File(context.filesDir, fileName).readText()
     }
 
     fun writeScript(fileName: String, script: String) {
-        val file = File(context.filesDir, fileName)
-        Files.newBufferedWriter(file.toPath()).use { writer ->
-            writer.write(script)
-        }
+        File(context.filesDir, fileName).writeText(script)
     }
 
     fun translate(context: Context, htmlUrl: String) {
