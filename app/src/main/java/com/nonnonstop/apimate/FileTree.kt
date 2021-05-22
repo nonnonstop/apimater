@@ -44,7 +44,7 @@ class FileTree(baseDir: File) : Timber.Tree() {
 
     private class MyLogger(name: String) : Logger(name, null)
 
-    private class MyFormatter() : Formatter() {
+    private class MyFormatter : Formatter() {
         companion object {
             private val dateFormatter = SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm'Z'",
