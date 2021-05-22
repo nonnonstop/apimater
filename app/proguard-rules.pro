@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontobfuscate
+-keep class com.nonnonstop.apimate.** { *; }
+-keep class org.mozilla.** { *; }
+-keep public class okhttp3.** { public *; }
+-keep public class timber.log.** { public *; }
