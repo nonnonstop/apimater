@@ -3,12 +3,15 @@
     <string name="app_name">APIMateR</string>
     <string name="basic_preference_header">基本設定</string>
     <string name="advanced_preference_header">詳細設定</string>
+    <string name="appinfo_preference_header">アプリ情報</string>
     <string name="prepare_title">datディレクトリを選択</string>
     <string name="revert_script_when_upgrade">更新時にスクリプトを最新化</string>
     <string name="edit_translator_title">トランスレータ・スクリプトの編集</string>
     <string name="edit_viewer_title">ビューア・スクリプトの編集</string>
     <string name="edit_preference_title">設定スクリプトの編集</string>
+    <string name="check_upgrade_startup_title">起動時に新しいバージョンを確認</string>
     <string name="oss_title">オープンソースライセンス</string>
+    <string name="version_title">バージョン</string>
     <string name="save_script">保存</string>
     <string name="revert_script">デフォルトに戻す</string>
     <string name="save_script_succeeded">保存しました</string>
@@ -19,4 +22,7 @@
     <string name="view_failed">スクリプト(view)の実行に失敗しました</string>
     <string name="prepare_create_failed">スクリプト(onCreateDatPreference)の実行に失敗しました</string>
     <string name="prepare_click_failed">スクリプト(onClickDatPreference)の実行に失敗しました</string>
+    <string name="upgrade_channel_name">更新通知</string>
+    <string name="upgrade_channel_description">新しいバージョンのリリースを通知します</string>
+    <string name="upgrade_notification_text">バージョン%1$sがリリースされました</string>
 </resources>

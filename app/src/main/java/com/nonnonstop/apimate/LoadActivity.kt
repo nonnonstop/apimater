@@ -11,6 +11,7 @@ class LoadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.load_activity)
+        UpdateChecker.enqueue(applicationContext)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

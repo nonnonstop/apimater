@@ -1,20 +1,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/basic_preference_header">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/basic_preference_header">
 
         <Preference
+            app:iconSpaceReserved="false"
             app:key="prepare"
             app:title="@string/prepare_title" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/advanced_preference_header">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/advanced_preference_header">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="revert_script_when_upgrade"
-            android:title="@string/revert_script_when_upgrade" />
+            android:title="@string/revert_script_when_upgrade"
+            app:iconSpaceReserved="false" />
         <Preference
+            app:iconSpaceReserved="false"
             app:key="edit_translator"
             app:title="@string/edit_translator_title">
             <intent
@@ -26,6 +33,7 @@
             </intent>
         </Preference>
         <Preference
+            app:iconSpaceReserved="false"
             app:key="edit_viewer"
             app:title="@string/edit_viewer_title">
             <intent
@@ -37,6 +45,7 @@
             </intent>
         </Preference>
         <Preference
+            app:iconSpaceReserved="false"
             app:key="edit_preference"
             app:title="@string/edit_preference_title">
             <intent
@@ -47,12 +56,31 @@
                     android:value="preference.js" />
             </intent>
         </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/appinfo_preference_header"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="check_upgrade_startup"
+            android:title="@string/check_upgrade_startup_title"
+            app:iconSpaceReserved="false" />
         <Preference
+            app:iconSpaceReserved="false"
             app:key="oss"
             app:title="@string/oss_title">
             <intent
                 android:targetClass="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
                 android:targetPackage="com.nonnonstop.apimate" />
+        </Preference>
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="version"
+            app:title="@string/version_title">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/nonnonstop/apimater/releases" />
         </Preference>
     </PreferenceCategory>
 

@@ -17,6 +17,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scripts = Scripts(requireContext())
+        onCreateDatPreference()
+        onCreateVersionPreference()
+    }
+
+    private fun onCreateDatPreference() {
         val preparePreference = findPreference<Preference>("prepare")!!
         try {
             val configState = scripts.onCreateDatPreference(this, preparePreference)
@@ -41,5 +46,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    private fun onCreateVersionPreference() {
+        val versionPreference = findPreference<Preference>("version")!!
+        versionPreference.summary = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME}"
     }
 }
