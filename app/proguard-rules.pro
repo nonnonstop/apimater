@@ -21,6 +21,9 @@
 #-renamesourcefileattribute SourceFile
 
 -dontobfuscate
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn org.conscrypt.**
 -keep class com.nonnonstop.apimate.** { *; }
 -keep class org.mozilla.** { *; }
 -keep public class okhttp3.** { public *; }
