@@ -18,7 +18,7 @@ class UpdateChecker(appContext: Context, workerParams: WorkerParameters) :
         private const val API_URL =
             "https://api.github.com/repos/nonnonstop/apimater/releases/latest"
         private val client = OkHttpClient()
-        private val versionRegex = """(?:\d+)(?:\.\d+)*""".toRegex()
+        private val versionRegex = """\d+(?:\.\d+)*""".toRegex()
 
         fun enqueue(context: Context): Boolean {
             val pref = PreferenceManager.getDefaultSharedPreferences(context)
@@ -67,7 +67,7 @@ class UpdateChecker(appContext: Context, workerParams: WorkerParameters) :
         }
     }
 
-    fun notifyUpgrade() {
+    private fun notifyUpgrade() {
         val request = Request.Builder()
             .url(API_URL)
             .build()

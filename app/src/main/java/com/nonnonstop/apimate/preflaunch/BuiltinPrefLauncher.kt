@@ -25,6 +25,7 @@ class BuiltinPrefLauncher {
         }
     }
 
+    @Suppress("unused")
     fun onClickDatPreference(
         launcher: ActivityResultLauncher<Uri>,
         authority: String,

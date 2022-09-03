@@ -9,6 +9,7 @@ import java.io.IOException
 import java.io.OutputStream
 import java.io.OutputStreamWriter
 
+@Suppress("unused")
 class BuiltinDatWriter(private val context: Context) : IDatWriter {
     private val treeUri = context
         .getSharedPreferences("DatWriter", Context.MODE_PRIVATE)

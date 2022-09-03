@@ -1,5 +1,6 @@
 package com.nonnonstop.apimate.translator
 
+@Suppress("unused")
 class BuiltinDatInfo(fullUrl: String) : IDatInfo {
     private companion object {
         val regexUrl = """https?://(\w+)\.[\w.]+/test/read\.(?:cgi|php)/(\w+)/(\d+)""".toRegex()

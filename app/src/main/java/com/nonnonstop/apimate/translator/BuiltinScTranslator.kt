@@ -3,6 +3,7 @@ package com.nonnonstop.apimate.translator
 import okhttp3.Request
 import timber.log.Timber
 
+@Suppress("unused")
 class BuiltinScTranslator : IDatTranslator {
     private companion object {
         val subTranslator by lazy {
