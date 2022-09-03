@@ -22,6 +22,7 @@
         <activity
             android:name=".LoadActivity"
             android:excludeFromRecents="true"
+            android:exported="true"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -50,7 +51,9 @@
                 <data android:scheme="apimater" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

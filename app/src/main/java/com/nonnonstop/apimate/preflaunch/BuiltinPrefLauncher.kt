@@ -9,7 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 
 class BuiltinPrefLauncher {
-    fun onCreateDatPreference(fragment: Fragment): ActivityResultLauncher<Uri> {
+    fun onCreateDatPreference(fragment: Fragment): ActivityResultLauncher<Uri?> {
         val context = fragment.requireContext().applicationContext
         return fragment.registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
             uri ?: return@registerForActivityResult
