@@ -17,6 +17,7 @@ function translate(context: ApplicationContext, fullUrl: string): void {
             '2chMate/0.8.10.89',
             'AbCdEfgHijklMnopqrsTuvwxyz',
             5000),
+        builtin.BuiltinItestTranslator(),
         builtin.BuiltinScTranslator(),
     ];
     try {
