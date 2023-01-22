@@ -26,10 +26,15 @@ function translate(context: ApplicationContext, fullUrl: string): void {
             try {
                 if (translator.translate(info, writer))
                     return;
-            } catch (e) {
-                Packages.timber.log.Timber.e(
-                    Packages.org.mozilla.javascript.EvaluatorException(e.toString()),
-                    'Failed to translate');
+            } catch (e: any) {
+                let javaException;
+                if (e.javaException)
+                    javaException = e.javaException;
+                else if (e.rhinoException)
+                    javaException = e.rhinoException;
+                else
+                    javaException = Packages.org.mozilla.javascript.EvaluatorException(e.toString())
+                Packages.timber.log.Timber.e(javaException, 'Failed to translate');
             }
         }
     } finally {
