@@ -9,7 +9,6 @@ function translate(context: ApplicationContext, fullUrl: string): void {
     const info = builtin.BuiltinDatInfo(fullUrl);
     const writer = builtin.BuiltinDatWriter(context);
     const translators = [
-        builtin.BuiltinHtmlTranslator(),
         builtin.BuiltinApiTranslator(
             '<5CH HM KEY>',
             '<5CH APP KEY>',
@@ -18,6 +17,7 @@ function translate(context: ApplicationContext, fullUrl: string): void {
             'AbCdEfgHijklMnopqrsTuvwxyz',
             5000),
         builtin.BuiltinItestTranslator(),
+        builtin.BuiltinHtmlTranslator(),
         builtin.BuiltinScTranslator(),
     ];
     try {
