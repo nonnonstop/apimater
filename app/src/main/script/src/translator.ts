@@ -33,7 +33,7 @@ function translate(context: ApplicationContext, fullUrl: string): void {
                 else if (e.rhinoException)
                     javaException = e.rhinoException;
                 else
-                    javaException = Packages.org.mozilla.javascript.EvaluatorException(e.toString())
+                    javaException = Packages.org.mozilla.javascript.EvaluatorException(e.toString());
                 Packages.timber.log.Timber.e(javaException, 'Failed to translate');
             }
         }
