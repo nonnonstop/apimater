@@ -45,8 +45,13 @@ class BuiltinItestTranslator : IDatTranslator {
             sb.append(comment.getString(3))
             comment.getString(4).let { id ->
                 if (!id.isNullOrEmpty()) {
-                    sb.append(" ID:")
-                    sb.append(id)
+                    if (id.contains("ID:") || id.contains("発信元:")) {
+                        sb.append(" ")
+                        sb.append(id)
+                    } else {
+                        sb.append(" ID:")
+                        sb.append(id)
+                    }
                 }
             }
             comment.getString(5).let { id ->
