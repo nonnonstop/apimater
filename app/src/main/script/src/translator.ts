@@ -17,6 +17,7 @@ function translate(context: ApplicationContext, fullUrl: string): void {
       "AbCdEfgHijklMnopqrsTuvwxyz",
       5000,
     ),
+    builtin.BuiltinDatTranslator(),
     builtin.BuiltinItestTranslator(),
     builtin.BuiltinHtmlTranslator(),
     builtin.BuiltinScTranslator(),

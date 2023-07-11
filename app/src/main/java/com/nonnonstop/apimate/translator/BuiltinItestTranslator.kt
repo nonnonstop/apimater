@@ -32,7 +32,6 @@ class BuiltinItestTranslator : IDatTranslator {
     override fun translate(info: IDatInfo, writer: IDatWriter): Boolean {
         Timber.i("Start translation")
         val sb = StringBuilder()
-        Timber.i("data" + request(info))
         val data = JSONObject(request(info))
         var title = data.getJSONArray("thread").getString(5)
         val comments = data.getJSONArray("comments")
