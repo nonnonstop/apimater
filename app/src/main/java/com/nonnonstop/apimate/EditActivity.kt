@@ -27,10 +27,12 @@ class EditActivity : AppCompatActivity() {
                 viewModel.save()
                 true
             }
+
             R.id.revert_script -> {
                 viewModel.revert()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -15,7 +15,7 @@ android {
         }
     }
     compileSdkVersion 33
-    buildToolsVersion '33.0.1'
+    buildToolsVersion '34.0.0'
 
     defaultConfig {
         applicationId "com.nonnonstop.apimate"
@@ -45,25 +45,39 @@ android {
         jvmTarget = '1.8'
     }
     namespace 'com.nonnonstop.apimate'
+
+    task npmInstall(type: NpmExec) {
+        npmCommandLine 'install'
+    }
+    task npmBuild(type: NpmExec) {
+        dependsOn npmInstall
+        npmCommandLine 'run', 'build'
+    }
+    task npmClean(type: NpmExec) {
+        ignoreExitValue true
+        npmCommandLine 'run', 'clean'
+    }
+    preBuild.dependsOn npmBuild
+    clean.dependsOn npmClean
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.activity:activity-ktx:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+    implementation 'androidx.fragment:fragment-ktx:1.5.7'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
-    implementation "androidx.work:work-runtime-ktx:2.7.1"
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'
     implementation 'org.mozilla:rhino:1.7.13'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -72,15 +86,14 @@ dependencies {
 // Build TypeScript
 import org.apache.tools.ant.taskdefs.condition.Os
 
-class NodeExec extends Exec {
-    NodeExec() {
-        workingDir 'src/main/script'
-        if (project.hasProperty('NPM_DIR')) {
-            environment 'PATH', project['NPM_DIR']
-        }
-    }
-
+class NpmExec extends Exec {
     void npmCommandLine(String... args) {
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def nodePath = properties.getProperty('NODE_PATH', '')
+        environment 'PATH', nodePath
+
+        workingDir 'src/main/script'
         if (Os.isFamily(Os.FAMILY_WINDOWS)) {
             commandLine('cmd', '/c', 'npm.cmd', *args)
         } else {
@@ -88,22 +101,3 @@ class NodeExec extends Exec {
         }
     }
 }
-
-def prepareBuildAssetScripts = tasks.register('prepareBuildAssetScripts', NodeExec) {
-    npmCommandLine 'install'
-}
-
-def buildAssetScripts = tasks.register('buildAssetScripts', NodeExec) {
-    npmCommandLine 'run', 'build'
-    dependsOn prepareBuildAssetScripts
-}
-
-def cleanBuildAssetScripts = tasks.register('cleanBuildAssetScripts', NodeExec) {
-    npmCommandLine 'run', 'clean'
-}
-
-android.applicationVariants.all { variant ->
-    variant.getMergeAssetsProvider().get().dependsOn(buildAssetScripts)
-}
-
-tasks.clean.dependsOn(cleanBuildAssetScripts)
