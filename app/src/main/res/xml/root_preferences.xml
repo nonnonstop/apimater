@@ -8,7 +8,16 @@
         <Preference
             app:iconSpaceReserved="false"
             app:key="prepare"
+            app:summary="@string/prepare_description"
             app:title="@string/prepare_title" />
+        <Preference
+            android:id="@+id/preference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:iconSpaceReserved="false"
+            app:key="open_default"
+            app:summary="@string/open_default_description"
+            app:title="@string/open_default_title" />
 
     </PreferenceCategory>
 
@@ -19,10 +28,12 @@
             android:defaultValue="true"
             android:key="revert_script_when_upgrade"
             android:title="@string/revert_script_when_upgrade"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:summary="@string/revert_script_when_upgrade_description" />
         <Preference
             app:iconSpaceReserved="false"
             app:key="edit_translator"
+            app:summary="@string/edit_translator_description"
             app:title="@string/edit_translator_title">
             <intent
                 android:targetClass="com.nonnonstop.apimate.EditActivity"
@@ -35,6 +46,7 @@
         <Preference
             app:iconSpaceReserved="false"
             app:key="edit_viewer"
+            app:summary="@string/edit_viewer_description"
             app:title="@string/edit_viewer_title">
             <intent
                 android:targetClass="com.nonnonstop.apimate.EditActivity"
@@ -47,6 +59,7 @@
         <Preference
             app:iconSpaceReserved="false"
             app:key="edit_preference"
+            app:summary="@string/edit_preference_description"
             app:title="@string/edit_preference_title">
             <intent
                 android:targetClass="com.nonnonstop.apimate.EditActivity"

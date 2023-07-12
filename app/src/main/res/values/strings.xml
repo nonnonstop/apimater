@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">APIMateR</string>
-    <string name="basic_preference_header">Basic Preferences</string>
+    <string name="basic_preference_header">Initial Setup</string>
     <string name="advanced_preference_header">Advanced Preferences</string>
     <string name="appinfo_preference_header">App Information</string>
     <string name="prepare_title">Select dat directory</string>
+    <string name="prepare_description">[Required] Select the dat directory and grant access.</string>
+    <string name="open_default_title">Configure app links</string>
+    <string name="open_default_description">[Required for Android 12 and above] Add 2ch.com, 5ch.com and bbspink.com from \"Add Link\".</string>
     <string name="revert_script_when_upgrade">Update scripts when upgrading</string>
+    <string name="revert_script_when_upgrade_description">When you update APIMateR to a newer version, replace the following script with the latest version.</string>
     <string name="edit_translator_title">Edit translator script</string>
+    <string name="edit_translator_description">Edit script for dat translation.</string>
     <string name="edit_viewer_title">Edit viewer script</string>
+    <string name="edit_viewer_description">Edit script for screen transitions.</string>
     <string name="edit_preference_title">Edit preference script</string>
+    <string name="edit_preference_description">Edit script to dat placement.</string>
     <string name="check_upgrade_startup_title">Check new version at startup</string>
     <string name="oss_title">Open source licenses</string>
     <string name="version_title">Version</string>

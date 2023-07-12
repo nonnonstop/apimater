@@ -1,6 +1,10 @@
 package com.nonnonstop.apimate
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -18,6 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
         scripts = Scripts(requireContext())
         onCreateDatPreference()
+        onCreateOpenDefaultPreference()
         onCreateVersionPreference()
     }
 
@@ -45,6 +50,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 R.string.prepare_create_failed,
                 Snackbar.LENGTH_LONG
             ).show()
+        }
+    }
+
+    private fun onCreateOpenDefaultPreference() {
+        val preference = findPreference<Preference>("open_default")!!
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            preference.isEnabled = false
+            return
+        }
+        preference.setOnPreferenceClickListener {
+            val intent = Intent(
+                Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
+                Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+            )
+            startActivity(intent)
+            true
         }
     }
 

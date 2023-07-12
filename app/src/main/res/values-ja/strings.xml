@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">APIMateR</string>
-    <string name="basic_preference_header">基本設定</string>
+    <string name="basic_preference_header">初期設定</string>
     <string name="advanced_preference_header">詳細設定</string>
     <string name="appinfo_preference_header">アプリ情報</string>
     <string name="prepare_title">datディレクトリを選択</string>
+    <string name="prepare_description">[必須] datディレクトリを選択してアクセスを許可してください。</string>
     <string name="revert_script_when_upgrade">更新時にスクリプトを最新化</string>
+    <string name="revert_script_when_upgrade_description">APIMateRを新しいバージョンにアップデートした際に、以下のスクリプトを最新のものに置き換えます。</string>
+    <string name="open_default_title">アプリリンクの設定</string>
+    <string name="open_default_description">[Android 12以上で必須] 「リンクの追加」から2ch.com、5ch.com、bbspink.comを追加してください。</string>
     <string name="edit_translator_title">トランスレータ・スクリプトの編集</string>
+    <string name="edit_translator_description">datの変換を行うスクリプトを編集します。</string>
     <string name="edit_viewer_title">ビューア・スクリプトの編集</string>
+    <string name="edit_viewer_description">画面遷移を行うスクリプトを編集します。</string>
     <string name="edit_preference_title">設定スクリプトの編集</string>
+    <string name="edit_preference_description">datの配置を行うスクリプトを編集します。</string>
     <string name="check_upgrade_startup_title">起動時に新しいバージョンを確認</string>
     <string name="oss_title">オープンソースライセンス</string>
     <string name="version_title">バージョン</string>
