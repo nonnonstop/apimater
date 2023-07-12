@@ -17,6 +17,7 @@
     <string name="edit_preference_title">設定スクリプトの編集</string>
     <string name="edit_preference_description">datの配置を行うスクリプトを編集します。</string>
     <string name="check_upgrade_startup_title">起動時に新しいバージョンを確認</string>
+    <string name="show_log">ログファイルを表示</string>
     <string name="oss_title">オープンソースライセンス</string>
     <string name="version_title">バージョン</string>
     <string name="save_script">保存</string>

@@ -6,10 +6,12 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import androidx.core.content.FileProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
+import java.io.File
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var scripts: Scripts
@@ -23,6 +25,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         scripts = Scripts(requireContext())
         onCreateDatPreference()
         onCreateOpenDefaultPreference()
+        onCreateShowLogPreference()
         onCreateVersionPreference()
     }
 
@@ -66,6 +69,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
             startActivity(intent)
             true
+        }
+    }
+
+    private fun onCreateShowLogPreference() {
+        val context = requireContext()
+        val logDir = context.externalCacheDir ?: return
+        val uri = FileProvider.getUriForFile(
+            context,
+            BuildConfig.APPLICATION_ID + ".fileprovider",
+            File(logDir, "exception0.txt")
+        )
+        val preference = findPreference<Preference>("show_log")!!
+        preference.intent = Intent(Intent.ACTION_VIEW).apply {
+            data = uri
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
     }
 

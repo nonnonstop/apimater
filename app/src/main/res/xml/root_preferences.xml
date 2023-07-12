@@ -81,6 +81,10 @@
             app:iconSpaceReserved="false" />
         <Preference
             app:iconSpaceReserved="false"
+            app:key="show_log"
+            app:title="@string/show_log" />
+        <Preference
+            app:iconSpaceReserved="false"
             app:key="oss"
             app:title="@string/oss_title">
             <intent

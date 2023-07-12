@@ -17,6 +17,7 @@
     <string name="edit_preference_title">Edit preference script</string>
     <string name="edit_preference_description">Edit script to dat placement.</string>
     <string name="check_upgrade_startup_title">Check new version at startup</string>
+    <string name="show_log">Show log file</string>
     <string name="oss_title">Open source licenses</string>
     <string name="version_title">Version</string>
     <string name="save_script">Save</string>
