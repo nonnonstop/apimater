@@ -40,7 +40,7 @@
                 android:targetPackage="com.nonnonstop.apimate">
                 <extra
                     android:name="android.intent.extra.TEXT"
-                    android:value="translator.js" />
+                    android:value="TRANSLATOR" />
             </intent>
         </Preference>
         <Preference
@@ -53,7 +53,7 @@
                 android:targetPackage="com.nonnonstop.apimate">
                 <extra
                     android:name="android.intent.extra.TEXT"
-                    android:value="viewer.js" />
+                    android:value="VIEWER" />
             </intent>
         </Preference>
         <Preference
@@ -66,7 +66,7 @@
                 android:targetPackage="com.nonnonstop.apimate">
                 <extra
                     android:name="android.intent.extra.TEXT"
-                    android:value="preference.js" />
+                    android:value="PREFERENCE" />
             </intent>
         </Preference>
     </PreferenceCategory>

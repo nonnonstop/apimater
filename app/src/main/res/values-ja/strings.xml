@@ -21,10 +21,12 @@
     <string name="version_title">バージョン</string>
     <string name="save_script">保存</string>
     <string name="revert_script">デフォルトに戻す</string>
+    <string name="preset_script">プリセット</string>
     <string name="save_script_succeeded">保存しました</string>
     <string name="save_script_failed">スクリプトの保存に失敗しました</string>
     <string name="revert_script_succeeded">初期化しました</string>
     <string name="revert_script_failed">スクリプトの初期化に失敗しました</string>
+    <string name="script_preset_succeeded">プリセットを選択しました</string>
     <string name="translate_failed">スクリプト(translate)の実行に失敗しました</string>
     <string name="view_failed">スクリプト(view)の実行に失敗しました</string>
     <string name="prepare_create_failed">スクリプト(onCreateDatPreference)の実行に失敗しました</string>
@@ -32,4 +34,9 @@
     <string name="upgrade_channel_name">更新通知</string>
     <string name="upgrade_channel_description">新しいバージョンのリリースを通知します</string>
     <string name="upgrade_notification_text">バージョン%1$sがリリースされました</string>
+    <string name="script_preset_translator_800">[v0.8] api,dat,itest,html,sc</string>
+    <string name="script_preset_translator_700">[v0.7] api,itest,html,sc</string>
+    <string name="script_preset_viewer_600">[v0.6] 別スレを経由して表示</string>
+    <string name="script_preset_viewer_400">[v0.4] プロセスを終了させてから表示</string>
+    <string name="script_preset_preference_400">[v0.1] 初版</string>
 </resources>

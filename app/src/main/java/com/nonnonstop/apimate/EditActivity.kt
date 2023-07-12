@@ -13,7 +13,7 @@ class EditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_activity)
-        viewModel.fileName.value = intent.getStringExtra(Intent.EXTRA_TEXT)
+        viewModel.scriptName.value = intent.getStringExtra(Intent.EXTRA_TEXT)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -30,6 +30,11 @@ class EditActivity : AppCompatActivity() {
 
             R.id.revert_script -> {
                 viewModel.revert()
+                true
+            }
+
+            R.id.preset_script -> {
+                viewModel.preset()
                 true
             }
 

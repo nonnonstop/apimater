@@ -4,35 +4,71 @@ import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
+import okio.use
 import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Function
 import java.io.File
 
 class Scripts(private val context: Context) {
-    private companion object {
-        const val TRANSLATOR_FILE = "translator.js"
-        const val VIEWER_FILE = "viewer.js"
-        const val PREFERENCE_FILE = "preference.js"
+    enum class Name {
+        TRANSLATOR,
+        VIEWER,
+        PREFERENCE
+    }
 
-        val ALL_FILES = arrayOf(
-            TRANSLATOR_FILE,
-            VIEWER_FILE,
-            PREFERENCE_FILE,
+    private companion object {
+        val INFO_LIST = mapOf(
+            Name.TRANSLATOR to Script(
+                "translator.js",
+                arrayOf(
+                    ScriptPreset(
+                        "translator.js",
+                        R.string.script_preset_translator_800,
+                    ),
+                    ScriptPreset(
+                        "preset/translator_700.js",
+                        R.string.script_preset_translator_700,
+                    ),
+                ),
+            ),
+            Name.VIEWER to Script(
+                "viewer.js",
+                arrayOf(
+                    ScriptPreset(
+                        "viewer.js",
+                        R.string.script_preset_viewer_600,
+                    ),
+                    ScriptPreset(
+                        "preset/viewer_400.js",
+                        R.string.script_preset_viewer_400,
+                    ),
+                ),
+            ),
+            Name.PREFERENCE to Script(
+                "preference.js",
+                arrayOf(
+                    ScriptPreset(
+                        "preference.js",
+                        R.string.script_preset_preference_400,
+                    ),
+                ),
+            ),
         )
     }
 
     init {
         val filesDir = context.filesDir
-        ALL_FILES.forEach { fileName ->
+        INFO_LIST.forEach { (name, info) ->
+            val fileName = info.filename
             val file = File(filesDir, fileName)
             if (!file.exists()) {
-                revertScript(fileName)
+                revertScript(name)
             }
         }
     }
 
-    private fun execute(fileName: String, functionName: String, vararg args: Any?): Any? {
-        val file = File(context.filesDir, fileName)
+    private fun execute(name: Name, functionName: String, vararg args: Any?): Any? {
+        val file = File(context.filesDir, INFO_LIST[name]!!.filename)
         val contextFactory = ContextFactory()
         val context = contextFactory.enterContext()
         try {
@@ -48,9 +84,10 @@ class Scripts(private val context: Context) {
         }
     }
 
-    fun revertScript(fileName: String) {
-        val file = File(context.filesDir, fileName)
-        context.assets.open(fileName).use { inputStream ->
+    fun revertScript(name: Name) {
+        val info = INFO_LIST[name]!!
+        val file = File(context.filesDir, info.filename)
+        context.assets.open(info.presets[0].filename).use { inputStream ->
             file.outputStream().use { outputStream ->
                 inputStream.copyTo(outputStream)
             }
@@ -58,32 +95,47 @@ class Scripts(private val context: Context) {
     }
 
     fun revertAllScripts() {
-        ALL_FILES.forEach { fileName ->
-            revertScript(fileName)
+        INFO_LIST.forEach { (name, _) ->
+            revertScript(name)
         }
     }
 
-    fun readScript(fileName: String): String {
-        return File(context.filesDir, fileName).readText()
+    fun readScript(name: Name): String {
+        val info = INFO_LIST[name]!!
+        return File(context.filesDir, info.filename).readText()
     }
 
-    fun writeScript(fileName: String, script: String) {
-        File(context.filesDir, fileName).writeText(script)
+    fun writeScript(name: Name, script: String) {
+        val info = INFO_LIST[name]!!
+        File(context.filesDir, info.filename).writeText(script)
+    }
+
+    fun getPresets(name: Name): Array<ScriptPreset> {
+        val info = INFO_LIST[name]!!
+        return info.presets
+    }
+
+    fun readPreset(filename: String): String {
+        context.assets.open(filename).use { inputStream ->
+            inputStream.bufferedReader().use { reader ->
+                return reader.readText()
+            }
+        }
     }
 
     fun translate(context: Context, htmlUrl: String) {
-        execute(TRANSLATOR_FILE, "translate", context, htmlUrl)
+        execute(Name.TRANSLATOR, "translate", context, htmlUrl)
     }
 
     fun onCreateDatPreference(fragment: Fragment, preference: Preference): Any? {
-        return execute(PREFERENCE_FILE, "onCreateDatPreference", fragment, preference)
+        return execute(Name.PREFERENCE, "onCreateDatPreference", fragment, preference)
     }
 
     fun onClickDatPreference(fragment: Fragment, state: Any?) {
-        execute(PREFERENCE_FILE, "onClickDatPreference", fragment, state)
+        execute(Name.PREFERENCE, "onClickDatPreference", fragment, state)
     }
 
     fun view(activity: Activity, htmlUrl: String) {
-        execute(VIEWER_FILE, "view", activity, htmlUrl)
+        execute(Name.VIEWER, "view", activity, htmlUrl)
     }
 }

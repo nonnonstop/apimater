@@ -21,10 +21,12 @@
     <string name="version_title">Version</string>
     <string name="save_script">Save</string>
     <string name="revert_script">Revert to default</string>
+    <string name="preset_script">Preset</string>
     <string name="save_script_succeeded">Saved</string>
     <string name="save_script_failed">Failed to save script</string>
     <string name="revert_script_succeeded">Reverted</string>
     <string name="revert_script_failed">Failed to revert script</string>
+    <string name="script_preset_succeeded">Preset selected</string>
     <string name="translate_failed">Failed to execute script (translate)</string>
     <string name="view_failed">Failed to execute script (view)</string>
     <string name="prepare_create_failed">Failed to execute script (onCreateDatPreference)</string>
@@ -32,4 +34,9 @@
     <string name="upgrade_channel_name">Upgrade notification</string>
     <string name="upgrade_channel_description">Notify when the new version app is available</string>
     <string name="upgrade_notification_text">Version %1$s available</string>
+    <string name="script_preset_translator_800">[v0.8] api,dat,itest,html,sc</string>
+    <string name="script_preset_translator_700">[v0.7] api,itest,html,sc</string>
+    <string name="script_preset_viewer_600">[v0.6.0] View via another thread</string>
+    <string name="script_preset_viewer_400">[v0.4.0] View after terminating the process</string>
+    <string name="script_preset_preference_400">[v0.4.0] First edition</string>
 </resources>

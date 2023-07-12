@@ -43,12 +43,14 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fileName = viewModel.fileName.value ?: return
-        viewModel.script.value = scripts.readScript(fileName)
+        val scriptName = viewModel.scriptName.value?.let {
+            Scripts.Name.valueOf(it)
+        } ?: return
+        viewModel.script.value = scripts.readScript(scriptName)
         viewModel.save.observe(viewLifecycleOwner) {
             try {
                 val script = binding?.editText?.text?.toString() ?: return@observe
-                scripts.writeScript(fileName, script)
+                scripts.writeScript(scriptName, script)
                 Snackbar.make(view, R.string.save_script_succeeded, Snackbar.LENGTH_SHORT).show()
             } catch (ex: Exception) {
                 Timber.e(ex, "Failed to save script")
@@ -57,8 +59,8 @@ class EditFragment : Fragment() {
         }
         viewModel.revert.observe(viewLifecycleOwner) {
             try {
-                scripts.revertScript(fileName)
-                val script = scripts.readScript(fileName)
+                scripts.revertScript(scriptName)
+                val script = scripts.readScript(scriptName)
                 viewModel.script.value = script
                 Snackbar.make(
                     requireView(),
@@ -73,6 +75,24 @@ class EditFragment : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
+        }
+        viewModel.preset.observe(viewLifecycleOwner) {
+            val dialog = ScriptPresetFragment.newInstance(scriptName)
+            childFragmentManager.setFragmentResultListener(
+                ScriptPresetFragment.RESULT_KEY,
+                viewLifecycleOwner
+            ) { _, data ->
+                val filename = data.getString(ScriptPresetFragment.ARG_FILENAME_KEY)
+                    ?: throw NullPointerException("arg not found")
+                val script = scripts.readPreset(filename)
+                viewModel.script.value = script
+                Snackbar.make(
+                    requireView(),
+                    R.string.script_preset_succeeded,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+            dialog.show(childFragmentManager, "ScriptPresetFragment")
         }
     }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class EditViewModel : ViewModel() {
-    val fileName by lazy {
+    val scriptName by lazy {
         MutableLiveData<String>()
     }
     val script by lazy {
@@ -16,6 +16,9 @@ class EditViewModel : ViewModel() {
     val revert by lazy {
         MutableLiveData<Boolean>()
     }
+    val preset by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     fun save() {
         save.value = true
@@ -23,5 +26,9 @@ class EditViewModel : ViewModel() {
 
     fun revert() {
         revert.value = true
+    }
+
+    fun preset() {
+        preset.value = true
     }
 }
