@@ -34,6 +34,7 @@
     <string name="upgrade_channel_name">Upgrade notification</string>
     <string name="upgrade_channel_description">Notify when the new version app is available</string>
     <string name="upgrade_notification_text">Version %1$s available</string>
+    <string name="script_preset_translator_900">[v0.9] api,dat,datkako,itest,html,sc</string>
     <string name="script_preset_translator_800">[v0.8] api,dat,itest,html,sc</string>
     <string name="script_preset_translator_700">[v0.7] api,itest,html,sc</string>
     <string name="script_preset_viewer_600">[v0.6.0] View via another thread</string>

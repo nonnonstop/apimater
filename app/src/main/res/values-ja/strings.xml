@@ -34,6 +34,7 @@
     <string name="upgrade_channel_name">更新通知</string>
     <string name="upgrade_channel_description">新しいバージョンのリリースを通知します</string>
     <string name="upgrade_notification_text">バージョン%1$sがリリースされました</string>
+    <string name="script_preset_translator_900">[v0.9] api,dat,datkako,itest,html,sc</string>
     <string name="script_preset_translator_800">[v0.8] api,dat,itest,html,sc</string>
     <string name="script_preset_translator_700">[v0.7] api,itest,html,sc</string>
     <string name="script_preset_viewer_600">[v0.6] 別スレを経由して表示</string>

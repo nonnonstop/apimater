@@ -18,6 +18,7 @@ function translate(context: ApplicationContext, fullUrl: string): void {
       5000,
     ),
     builtin.BuiltinDatTranslator(),
+    builtin.BuiltinDatKakoTranslator(),
     builtin.BuiltinItestTranslator(),
     builtin.BuiltinHtmlTranslator(),
     builtin.BuiltinScTranslator(),

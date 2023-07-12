@@ -23,6 +23,10 @@ class Scripts(private val context: Context) {
                 arrayOf(
                     ScriptPreset(
                         "translator.js",
+                        R.string.script_preset_translator_900,
+                    ),
+                    ScriptPreset(
+                        "preset/translator_800.js",
                         R.string.script_preset_translator_800,
                     ),
                     ScriptPreset(
